@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #F5F4EF;
+  --bg-card: #FFFFFF;
+  --border: #E2E0D8;
+  --border-soft: #F0EFE9;
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B6B7B;
+  --accent: #1A1A2E;
+  --accent-gold: #C9A84C;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.card-hover {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.card-hover:hover {
+  box-shadow: 0 8px 32px rgba(26,26,46,0.10);
+  transform: translateY(-1px);
+}
+
+/* Hide scrollbar on floating nav */
+nav::-webkit-scrollbar {
+  display: none;
+}
