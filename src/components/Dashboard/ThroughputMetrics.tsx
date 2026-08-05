@@ -1,5 +1,5 @@
 import { Metrics } from '../../types';
-import { Clock, TrendingUp, Activity, Target } from 'lucide-react';
+import { Clock, TrendingUp, Layers, Activity } from 'lucide-react';
 
 interface ThroughputMetricsProps {
   metrics: Metrics;
@@ -7,10 +7,10 @@ interface ThroughputMetricsProps {
 
 export default function ThroughputMetrics({ metrics }: ThroughputMetricsProps) {
   const metricCards = [
-    { label: 'Average Delay',       value: `${metrics.averageDelay}`,       unit: 'min', icon: <Clock className="w-5 h-5" />,     trend: -12 },
-    { label: 'Trains Per Hour',     value: `${metrics.trainsPerHour}`,      unit: '',    icon: <TrendingUp className="w-5 h-5" />,  trend: 8  },
-    { label: 'Track Utilization',   value: `${metrics.trackUtilization}`,   unit: '%',   icon: <Activity className="w-5 h-5" />,   trend: 5  },
-    { label: 'On-Time Performance', value: `${metrics.onTimePerformance}`,  unit: '%',   icon: <Target className="w-5 h-5" />,     trend: 3  },
+    { label: 'Average Delay',       value: `${metrics.averageDelay}`,       unit: 'min', icon: <Clock size={18} strokeWidth={1.8} />,      trend: -12 },
+    { label: 'Trains Per Hour',     value: `${metrics.trainsPerHour}`,      unit: '',    icon: <TrendingUp size={18} strokeWidth={1.8} />,   trend: 8  },
+    { label: 'Track Utilization',   value: `${metrics.trackUtilization}`,   unit: '%',   icon: <Layers size={18} strokeWidth={1.8} />,       trend: 5  },
+    { label: 'On-Time Performance', value: `${metrics.onTimePerformance}`,  unit: '%',   icon: <Activity size={18} strokeWidth={1.8} />,     trend: 3  },
   ];
 
   return (

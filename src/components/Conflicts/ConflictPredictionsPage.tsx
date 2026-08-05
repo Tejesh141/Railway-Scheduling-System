@@ -31,7 +31,7 @@ export default function ConflictPredictionsPage() {
 
   if (loading) return (
     <div className="flex items-center justify-center py-32">
-      <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#6B6B7B' }} />
+    <Loader2 size={22} strokeWidth={1.8} className="animate-spin" style={{ color: '#6B6B7B' }} />
     </div>
   );
 
@@ -53,12 +53,12 @@ export default function ConflictPredictionsPage() {
         </div>
         {supabaseReady ? (
           <div className="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full border" style={{ color: '#1A1A2E', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-            <Wifi className="w-3 h-3" /><span>Live</span>
+          <Wifi size={13} strokeWidth={1.8} /><span>Live</span>
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#C9A84C' }} />
           </div>
         ) : (
           <div className="flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-full border" style={{ color: '#6B6B7B', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-            <WifiOff className="w-3 h-3" /><span>Mock</span>
+          <WifiOff size={13} strokeWidth={1.8} /><span>Mock</span>
           </div>
         )}
       </div>
@@ -80,7 +80,7 @@ export default function ConflictPredictionsPage() {
       {/* Conflict list */}
       {visible.length === 0 ? (
         <div className="rounded-2xl border p-16 text-center" style={{ background: '#FFFFFF', borderColor: '#E2E0D8' }}>
-          <CheckCircle className="w-10 h-10 mx-auto mb-3" style={{ color: '#E2E0D8' }} />
+          <CheckCircle size={36} strokeWidth={1.8} className="mx-auto mb-3" style={{ color: '#E2E0D8' }} />
           <p className="text-sm font-medium" style={{ color: '#1A1A2E' }}>No active conflicts</p>
           <p className="text-xs mt-1" style={{ color: '#6B6B7B' }}>All sections are clear</p>
         </div>
@@ -92,11 +92,11 @@ export default function ConflictPredictionsPage() {
               <div key={c.id} className="rounded-2xl border p-5 transition-all" style={{ background: '#FFFFFF', borderColor: '#E2E0D8' }}>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">
-                    <AlertTriangle className="w-4 h-4" style={{ color: sev.dot }} />
+                    <AlertTriangle size={15} strokeWidth={1.8} style={{ color: sev.dot }} />
                     <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={sev.badge}>{c.severity}</span>
                   </div>
                   <div className="flex items-center space-x-1 text-xs" style={{ color: '#6B6B7B' }}>
-                    <Clock className="w-3 h-3" />
+                    <Clock size={13} strokeWidth={1.8} />
                     <span className="font-semibold">{c.timeToConflict} min</span>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ export default function ConflictPredictionsPage() {
                     className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-all"
                     style={{ background: '#FFFFFF', borderColor: '#E2E0D8', color: '#1A1A2E' }}
                   >
-                    <Eye className="w-3 h-3" /><span>Details</span>
+                    <Eye size={13} strokeWidth={1.8} /><span>Details</span>
                   </button>
                   <button
                     onClick={() => handleAutoResolve(c)}
@@ -122,7 +122,7 @@ export default function ConflictPredictionsPage() {
                     className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-all disabled:opacity-50"
                     style={{ background: '#1A1A2E', color: '#C9A84C' }}
                   >
-                    {resolving === c.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <CheckCircle className="w-3 h-3" />}
+                    {resolving === c.id ? <Loader2 size={13} strokeWidth={1.8} className="animate-spin" /> : <CheckCircle size={13} strokeWidth={1.8} />}
                     <span>{resolving === c.id ? 'Resolving...' : 'Auto-Resolve'}</span>
                   </button>
                 </div>

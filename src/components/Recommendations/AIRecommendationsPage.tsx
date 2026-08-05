@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History } from 'lucide-react';
+import { BrainCircuit, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History } from 'lucide-react';
 import { Recommendation } from '../../types';
 import { supabase, supabaseReady } from '../../lib/supabaseClient';
 import { useRecommendations } from '../../hooks/useRecommendations';
@@ -57,12 +57,12 @@ export default function AIRecommendationsPage() {
         <div className="flex items-center space-x-3">
           {supabaseReady ? (
             <div className="flex items-center space-x-2 text-xs px-3 py-1.5 rounded-full border" style={{ color: '#1A1A2E', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-              <Wifi className="w-3 h-3" /><span>Live from Supabase</span>
+          <Wifi size={13} strokeWidth={1.8} /><span>Live from Supabase</span>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#C9A84C' }} />
             </div>
           ) : (
             <div className="flex items-center space-x-2 text-xs px-3 py-1.5 rounded-full border" style={{ color: '#6B6B7B', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-              <WifiOff className="w-3 h-3" /><span>Mock data</span>
+          <WifiOff size={13} strokeWidth={1.8} /><span>Mock data</span>
             </div>
           )}
           <button
@@ -70,7 +70,7 @@ export default function AIRecommendationsPage() {
             className="flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-xl transition-colors"
             style={{ background: '#1A1A2E', color: '#C9A84C' }}
           >
-            <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw size={15} strokeWidth={1.8} className={refreshing ? 'animate-spin' : ''} />
             <span>Refresh</span>
           </button>
         </div>
@@ -93,7 +93,7 @@ export default function AIRecommendationsPage() {
 
       {/* Filter Tabs */}
       <div className="flex items-center space-x-2">
-        <Filter className="w-4 h-4" style={{ color: '#9B9BAB' }} />
+        <Filter size={15} strokeWidth={1.8} style={{ color: '#9B9BAB' }} />
         {(['All', 'Pending', 'Accepted', 'Overridden'] as FilterType[]).map(f => (
           <button key={f} onClick={() => setFilter(f)}
             className="px-4 py-1.5 rounded-full text-sm font-medium transition-colors border"
@@ -111,13 +111,13 @@ export default function AIRecommendationsPage() {
         <div className="lg:col-span-2 space-y-4">
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin" style={{ color: '#6B6B7B' }} />
+              <Loader2 size={28} strokeWidth={1.8} className="animate-spin" style={{ color: '#6B6B7B' }} />
             </div>
           ) : error ? (
             <div className="text-center py-10 text-sm" style={{ color: '#6B6B7B' }}>{error}</div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-16 rounded-2xl border" style={{ background: '#FFFFFF', borderColor: '#E2E0D8' }}>
-              <Sparkles className="w-12 h-12 mx-auto mb-3" style={{ color: '#E2E0D8' }} />
+              <BrainCircuit size={42} strokeWidth={1.8} className="mx-auto mb-3" style={{ color: '#E2E0D8' }} />
               <p style={{ color: '#6B6B7B' }}>No {filter.toLowerCase()} recommendations</p>
             </div>
           ) : (
@@ -133,7 +133,7 @@ export default function AIRecommendationsPage() {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <div className="flex items-center space-x-2 mb-1">
-                        <Train className="w-3 h-3" style={{ color: '#C9A84C' }} />
+                        <Train size={13} strokeWidth={1.8} style={{ color: '#C9A84C' }} />
                         <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#1A1A2E' }}>Train {rec.trainId}</span>
                         <span style={{ color: '#E2E0D8' }}>•</span>
                         <span className="text-xs" style={{ color: '#6B6B7B' }}>{rec.trainName}</span>
@@ -143,7 +143,7 @@ export default function AIRecommendationsPage() {
                     {rec.delayReduction > 0 && (
                       <div className="flex items-center space-x-1 px-3 py-1 rounded-full border flex-shrink-0"
                         style={{ background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-                        <TrendingDown className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />
+                        <TrendingDown size={14} strokeWidth={1.8} style={{ color: '#C9A84C' }} />
                         <span className="text-xs font-semibold" style={{ color: '#1A1A2E' }}>-{rec.delayReduction} min</span>
                       </div>
                     )}
@@ -155,7 +155,7 @@ export default function AIRecommendationsPage() {
                   </div>
 
                   <div className="flex items-center space-x-1 text-xs mb-4" style={{ color: '#9B9BAB' }}>
-                    <Clock className="w-3 h-3" />
+                    <Clock size={13} strokeWidth={1.8} />
                     <span>Generated {timeAgo(rec.timestamp)}</span>
                   </div>
 
@@ -165,7 +165,7 @@ export default function AIRecommendationsPage() {
                         background: '#F5F4EF', borderColor: '#E2E0D8',
                         color: status === 'accepted' ? '#1A1A2E' : '#6B6B7B',
                       }}>
-                      {status === 'accepted' ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                      {status === 'accepted' ? <Check size={14} strokeWidth={1.8} /> : <X size={14} strokeWidth={1.8} />}
                       <span>{status === 'accepted' ? 'Accepted & Saved' : 'Overridden & Saved'}</span>
                     </div>
                   ) : (
@@ -173,13 +173,13 @@ export default function AIRecommendationsPage() {
                       <button onClick={() => handleAction(rec, 'accepted')} disabled={isLoading}
                         className="flex items-center space-x-2 px-4 py-2 text-xs font-medium rounded-xl transition-colors disabled:opacity-50"
                         style={{ background: '#1A1A2E', color: '#C9A84C' }}>
-                        <Check className="w-3.5 h-3.5" />
+                        <Check size={14} strokeWidth={1.8} />
                         <span>{isLoading ? 'Saving...' : 'Accept'}</span>
                       </button>
                       <button onClick={() => handleAction(rec, 'overridden')} disabled={isLoading}
                         className="flex items-center space-x-2 px-4 py-2 text-xs font-medium rounded-xl transition-colors disabled:opacity-50 border"
                         style={{ background: '#FFFFFF', borderColor: '#E2E0D8', color: '#6B6B7B' }}>
-                        <X className="w-3.5 h-3.5" />
+                        <X size={14} strokeWidth={1.8} />
                         <span>{isLoading ? 'Saving...' : 'Override'}</span>
                       </button>
                     </div>
@@ -194,7 +194,7 @@ export default function AIRecommendationsPage() {
         <div className="space-y-4">
           <div className="rounded-2xl border p-5" style={{ background: '#FFFFFF', borderColor: '#E2E0D8' }}>
             <h3 className="text-sm font-semibold mb-4 flex items-center space-x-2" style={{ color: '#1A1A2E' }}>
-              <Sparkles className="w-4 h-4" style={{ color: '#C9A84C' }} />
+              <BrainCircuit size={15} strokeWidth={1.8} style={{ color: '#C9A84C' }} />
               <span>AI Performance</span>
             </h3>
             <div className="space-y-3">
@@ -214,7 +214,7 @@ export default function AIRecommendationsPage() {
 
           <div className="rounded-2xl border p-5" style={{ background: '#FFFFFF', borderColor: '#E2E0D8' }}>
             <h3 className="text-sm font-semibold mb-4 flex items-center space-x-2" style={{ color: '#1A1A2E' }}>
-              <History className="w-4 h-4" style={{ color: '#9B9BAB' }} />
+              <History size={15} strokeWidth={1.8} style={{ color: '#9B9BAB' }} />
               <span>Action History</span>
             </h3>
             {history.length === 0 ? (

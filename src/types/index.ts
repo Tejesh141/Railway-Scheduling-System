@@ -69,4 +69,4 @@ export interface Metrics {
   onTimePerformance: number;
 }
 
-export type Page = 'dashboard' | 'live-map' | 'conflicts' | 'recommendations' | 'simulation' | 'analytics' | 'logs' | 'settings';
+export type Page = 'home' | 'dashboard' | 'live-map' | 'conflicts' | 'recommendations' | 'settings';

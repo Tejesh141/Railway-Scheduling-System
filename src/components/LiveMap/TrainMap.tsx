@@ -95,16 +95,18 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
             onMouseEnter={() => setHoveredId(train.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
-            {/* pulse ring */}
-            <motion.div
-              style={{ width: 28, height: 28, borderRadius: '50%', border: `2px solid ${color}`, position: 'absolute', top: -6, left: -6 }}
-              animate={{ scale: [1, 1.6, 1], opacity: [0.7, 0, 0.7] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
+            {/* pulse ring — only for delayed trains */}
+            {isDelayed && (
+              <motion.div
+                style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${color}`, position: 'absolute', top: -4, left: -4 }}
+                animate={{ scale: [1, 1.6, 1], opacity: [0.7, 0, 0.7] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            )}
             {/* dot */}
             <motion.div
-              style={{ width: 16, height: 16, borderRadius: '50%', background: color, border: '2px solid white', boxShadow: `0 0 6px ${color}`, cursor: 'pointer' }}
-              whileHover={{ scale: 1.3 }}
+              style={{ width: 12, height: 12, borderRadius: '50%', background: color, border: '2px solid white', boxShadow: `0 0 5px ${color}`, cursor: 'pointer' }}
+              whileHover={{ scale: 1.4 }}
             />
             {/* tooltip */}
             <AnimatePresence>

@@ -1,5 +1,5 @@
 import { Train } from '../../types';
-import { Circle, Loader2, Wifi, WifiOff } from 'lucide-react';
+import { Train as TrainIcon, Loader2, Wifi, WifiOff } from 'lucide-react';
 import { supabaseReady } from '../../lib/supabaseClient';
 
 interface LiveTrainStatusProps {
@@ -25,20 +25,20 @@ export default function LiveTrainStatus({ trains, loading, error }: LiveTrainSta
         <div className="flex items-center space-x-2">
           {loading ? (
             <div className="flex items-center space-x-2 text-xs" style={{ color: '#6B6B7B' }}>
-              <Loader2 className="w-3 h-3 animate-spin" /><span>Loading...</span>
+          <Loader2 size={13} strokeWidth={1.8} style={{ color: '#6B6B7B' }} /><span>Loading...</span>
             </div>
           ) : error ? (
             <div className="flex items-center space-x-2 text-xs px-3 py-1 rounded-full border" style={{ color: '#1A1A2E', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-              <WifiOff className="w-3 h-3" /><span>DB error</span>
+              <WifiOff size={13} strokeWidth={1.8} /><span>DB error</span>
             </div>
           ) : supabaseReady ? (
             <div className="flex items-center space-x-2 text-xs px-3 py-1 rounded-full border" style={{ color: '#1A1A2E', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-              <Wifi className="w-3 h-3" /><span>Live</span>
+              <Wifi size={13} strokeWidth={1.8} /><span>Live</span>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#C9A84C' }} />
             </div>
           ) : (
             <div className="flex items-center space-x-2 text-xs px-3 py-1 rounded-full border" style={{ color: '#6B6B7B', background: '#F5F4EF', borderColor: '#E2E0D8' }}>
-              <WifiOff className="w-3 h-3" /><span>Mock</span>
+              <WifiOff size={13} strokeWidth={1.8} /><span>Mock</span>
             </div>
           )}
         </div>
@@ -46,7 +46,7 @@ export default function LiveTrainStatus({ trains, loading, error }: LiveTrainSta
 
       {loading ? (
         <div className="flex items-center justify-center py-16">
-          <Loader2 className="w-8 h-8 animate-spin" style={{ color: '#C9A84C' }} />
+          <Loader2 size={28} strokeWidth={1.8} className="animate-spin" style={{ color: '#C9A84C' }} />
         </div>
       ) : (
         <div className="overflow-x-auto">
@@ -86,7 +86,7 @@ export default function LiveTrainStatus({ trains, loading, error }: LiveTrainSta
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center space-x-2">
-                      <Circle className="w-2 h-2 fill-current" style={{ color: getStatusDot(train.status).bg, opacity: getStatusDot(train.status).opacity }} />
+                      <TrainIcon size={13} strokeWidth={1.8} style={{ color: getStatusDot(train.status).bg, opacity: getStatusDot(train.status).opacity }} />
                       <span className="text-sm" style={{ color: '#1A1A2E' }}>{train.status}</span>
                     </div>
                   </td>
