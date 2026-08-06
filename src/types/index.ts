@@ -60,6 +60,9 @@ export interface Recommendation {
   explanation: string;
   delayReduction: number;
   timestamp: Date;
+  defaultAction: 'accepted' | 'overridden';
+  priority: 'High' | 'Medium' | 'Low';
+  conflictsWith?: string; // id of the other recommendation it conflicts with
 }
 
 export interface Metrics {
