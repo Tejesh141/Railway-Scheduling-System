@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+<<<<<<< HEAD
 import { BrainCircuit, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History, Zap, MapPin } from 'lucide-react';
+=======
+import { BrainCircuit, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History, Zap } from 'lucide-react';
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
 import { Recommendation } from '../../types';
 import { supabase, supabaseReady } from '../../lib/supabaseClient';
 import { useRecommendations } from '../../hooks/useRecommendations';
@@ -339,6 +343,7 @@ export default function AIRecommendationsPage() {
                     <span>Generated {timeAgo(rec.timestamp)}</span>
                   </div>
 
+<<<<<<< HEAD
 {status === 'accepted' && rec.trackAssignment && rec.trackAssignment.length > 0 && (
                     <div className="mt-3 rounded-xl border overflow-hidden" style={{ borderColor: '#E2E0D8' }}>
                       <div className="flex items-center space-x-1.5 px-3 py-2" style={{ background: '#1A1A2E', borderBottom: '1px solid rgba(201,168,76,0.25)' }}>
@@ -373,6 +378,9 @@ export default function AIRecommendationsPage() {
                   )}
 
                   {status ? (
+=======
+{status ? (
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
                     <div className="text-xs font-semibold px-3 py-2 rounded-xl inline-flex items-center space-x-2 border"
                       style={{
                         background: '#F5F4EF', borderColor: '#E2E0D8',

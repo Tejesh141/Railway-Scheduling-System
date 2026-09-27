@@ -152,8 +152,13 @@ export default function TrainMap({ trains, tracks }: TrainMapProps) {
         scrollWheelZoom={true}
       >
         <TileLayer
+<<<<<<< HEAD
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+=======
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
         />
         {tracks.map((coords, i) => (
           <Polyline

@@ -27,7 +27,10 @@ function buildGpsRoute(stationNames: string[]) {
 }
 
 export const mockTrains: Train[] = [
+<<<<<<< HEAD
   // ── Conflict Pair 1: C001 ── Nellai Express vs Bangalore Rajdhani @ Katpadi Junction
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   {
     id: '12632',
     name: 'Nellai Express',
@@ -64,7 +67,10 @@ export const mockTrains: Train[] = [
     segmentProgress: 0.2,
     gpsRoute: buildGpsRoute(['Chennai Central', 'Arakkonam', 'Katpadi Junction', 'Jolarpettai', 'Bangalore']),
   },
+<<<<<<< HEAD
   // ── Conflict Pair 2: C002 ── Trivandrum Express vs Anantapuri Express @ Chengalpattu
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   {
     id: '12430',
     name: 'Trivandrum Express',
@@ -84,6 +90,7 @@ export const mockTrains: Train[] = [
     gpsRoute: buildGpsRoute(['Chennai Central', 'Tambaram', 'Chengalpattu', 'Villupuram', 'Trichy', 'Trivandrum']),
   },
   {
+<<<<<<< HEAD
     id: '16724',
     name: 'Anantapuri Express',
     type: 'Passenger',
@@ -103,6 +110,8 @@ export const mockTrains: Train[] = [
   },
   // ── Conflict Pair 3: C003 ── Coimbatore SF vs Freight 023 @ Jolarpettai
   {
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
     id: '22691',
     name: 'Coimbatore SF',
     type: 'Express',
@@ -121,6 +130,27 @@ export const mockTrains: Train[] = [
     gpsRoute: buildGpsRoute(['Chennai Central', 'Arakkonam', 'Katpadi Junction', 'Salem', 'Coimbatore']),
   },
   {
+<<<<<<< HEAD
+=======
+    id: '16724',
+    name: 'Anantapuri Express',
+    type: 'Passenger',
+    currentStation: 'Tambaram',
+    nextStation: 'Chengalpattu',
+    delay: 8,
+    priority: 'Low',
+    status: 'Running',
+    speed: 70,
+    route: ['Chennai Central', 'Tambaram', 'Chengalpattu', 'Villupuram'],
+    position: { x: 170, y: 130 },
+    gps: { lat: 12.9249, lng: 80.1000 },
+    heading: 190,
+    routeIndex: 1,
+    segmentProgress: 0.3,
+    gpsRoute: buildGpsRoute(['Chennai Central', 'Tambaram', 'Chengalpattu', 'Villupuram']),
+  },
+  {
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
     id: '56023',
     name: 'Freight 023',
     type: 'Freight',
@@ -138,7 +168,10 @@ export const mockTrains: Train[] = [
     segmentProgress: 0.0,
     gpsRoute: buildGpsRoute(['Chennai Central', 'Jolarpettai', 'Salem', 'Erode']),
   },
+<<<<<<< HEAD
   // ── Conflict Pair 4: C004 ── Lalbagh Express vs Sanghamitra Express @ Krishnarajapuram
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   {
     id: '12608',
     name: 'Lalbagh Express',
@@ -175,6 +208,7 @@ export const mockTrains: Train[] = [
     segmentProgress: 0.25,
     gpsRoute: buildGpsRoute(['Chennai Central', 'Villupuram', 'Tiruvannamalai', 'Salem']),
   },
+<<<<<<< HEAD
   // ── Conflict Pair 5: C005 ── Salem Intercity vs Freight 047 @ Salem
   {
     id: '12243',
@@ -286,6 +320,8 @@ export const mockTrains: Train[] = [
     segmentProgress: 0.1,
     gpsRoute: buildGpsRoute(['Coimbatore', 'Erode', 'Salem']),
   },
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
 ];
 
 export const mockConflicts: Conflict[] = [
@@ -319,6 +355,7 @@ export const mockConflicts: Conflict[] = [
     timeToConflict: 18,
     severity: 'Minor',
   },
+<<<<<<< HEAD
   {
     id: 'C004',
     trainId1: '12608',
@@ -364,16 +401,27 @@ export const mockConflicts: Conflict[] = [
 // Each conflict maps to exactly 2 recommendations (one per train in the pair)
 export const mockRecommendations: Recommendation[] = [
   // C001 — Nellai Express vs Bangalore Rajdhani @ Katpadi Junction (Critical, 6 min)
+=======
+];
+
+export const mockRecommendations: Recommendation[] = [
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   {
     id: 'R001',
     trainId: '12632',
     trainName: 'Nellai Express',
+<<<<<<< HEAD
     action: 'Maintain speed — clear corridor priority at Katpadi Junction',
     explanation: 'Train 12632 (Nellai Express) is on time with High priority approaching Katpadi Junction. Bangalore Rajdhani (22910) is converging in 6 min — Critical. AI grants Nellai Express clear passage. ACCEPT to dispatch go-ahead signal.',
+=======
+    action: 'Maintain speed — clear corridor priority',
+    explanation: 'Train 12632 is on time with High priority. No conflicts ahead. AI confirms clear passage on main line. ACCEPT to dispatch go-ahead signal.',
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
     delayReduction: 0,
     timestamp: new Date(),
     defaultAction: 'accepted',
     priority: 'High',
+<<<<<<< HEAD
     conflictsWith: 'R002',
     trackAssignment: [
       { station: 'Tambaram',         line: 'Main Line', platform: 1 },
@@ -382,11 +430,14 @@ export const mockRecommendations: Recommendation[] = [
       { station: 'Villupuram',       line: 'Loop Line', platform: 2, minSpeed: 35 },
       { station: 'Cuddalore',        line: 'Main Line', platform: 1 },
     ],
+=======
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   },
   {
     id: 'R002',
     trainId: '22910',
     trainName: 'Bangalore Rajdhani',
+<<<<<<< HEAD
     action: 'Reduce speed to 80 km/h until Katpadi Junction clears',
     explanation: 'Train 22910 (Bangalore Rajdhani) is 12 min delayed and closing on Nellai Express at Katpadi Junction in 6 min (Critical). Reducing to 80 km/h creates a safe 4-min buffer. AI overrides in favour of on-time High priority train.',
     delayReduction: 5,
@@ -396,12 +447,26 @@ export const mockRecommendations: Recommendation[] = [
     conflictsWith: 'R001',
   },
   // C002 — Trivandrum Express vs Anantapuri Express @ Chengalpattu (Warning, 12 min)
+=======
+    action: 'Reduce speed to 80 km/h until Jolarpettai',
+    explanation: 'Train 22910 is 12 min delayed and closing gap with Nellai Express. Reducing to 80 km/h creates a safe 4-min buffer at Katpadi Junction. ACCEPT to apply speed restriction and prevent collision.',
+    delayReduction: 5,
+    timestamp: new Date(),
+    defaultAction: 'accepted',
+    priority: 'High',
+  },
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   {
     id: 'R003',
     trainId: '12430',
     trainName: 'Trivandrum Express',
+<<<<<<< HEAD
     action: 'Hold at Chengalpattu for 8 minutes',
     explanation: 'Train 12430 (Trivandrum Express) and Anantapuri Express (16724) are converging at Chengalpattu in 12 min (Warning). Trivandrum Express has Medium priority — AI holds it to allow Anantapuri Express to clear the section first.',
+=======
+    action: 'Hold at Chengalpattu for 6 minutes',
+    explanation: 'Train 12430 and Freight 023 are both requesting the same track segment at Jolarpettai simultaneously. Trivandrum Express has Medium priority — AI auto-overrides in favour of higher priority train.',
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
     delayReduction: 8,
     timestamp: new Date(),
     defaultAction: 'overridden',
@@ -410,6 +475,7 @@ export const mockRecommendations: Recommendation[] = [
   },
   {
     id: 'R004',
+<<<<<<< HEAD
     trainId: '16724',
     trainName: 'Anantapuri Express',
     action: 'Maintain current speed — priority passage through Chengalpattu',
@@ -451,10 +517,17 @@ export const mockRecommendations: Recommendation[] = [
     trainName: 'Freight 023',
     action: 'Divert to Loop Line at Jolarpettai',
     explanation: 'Train 56023 (Freight 023) is 25 min delayed and conflicts with Coimbatore SF at Jolarpettai in 18 min (Minor). Low priority freight — AI diverts to loop line while Coimbatore SF clears the main track.',
+=======
+    trainId: '56023',
+    trainName: 'Freight 023',
+    action: 'Divert to Loop Line at Jolarpettai',
+    explanation: 'Freight 023 conflicts with Trivandrum Express for the same track at Jolarpettai. Freight has Low priority — AI auto-overrides and holds at yard while Trivandrum Express clears the section.',
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
     delayReduction: 12,
     timestamp: new Date(),
     defaultAction: 'overridden',
     priority: 'Low',
+<<<<<<< HEAD
     conflictsWith: 'R005',
   },
   // C004 — Lalbagh Express vs Sanghamitra Express @ Krishnarajapuram (Critical, 9 min)
@@ -578,6 +651,9 @@ export const mockRecommendations: Recommendation[] = [
     defaultAction: 'overridden',
     priority: 'Low',
     conflictsWith: 'R013',
+=======
+    conflictsWith: 'R003',
+>>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
   },
 ];
 
