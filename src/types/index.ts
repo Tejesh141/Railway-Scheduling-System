@@ -52,7 +52,6 @@ export interface AIInstruction {
   acknowledged: boolean;
 }
 
-<<<<<<< HEAD
 export interface StationTrackInfo {
   station: string;
   line: 'Main Line' | 'Loop Line';
@@ -60,8 +59,6 @@ export interface StationTrackInfo {
   minSpeed?: number; // km/h — only set when routed to Loop Line
 }
 
-=======
->>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
 export interface Recommendation {
   id: string;
   trainId: string;
@@ -72,12 +69,8 @@ export interface Recommendation {
   timestamp: Date;
   defaultAction: 'accepted' | 'overridden';
   priority: 'High' | 'Medium' | 'Low';
-<<<<<<< HEAD
   conflictsWith?: string;
-  trackAssignment?: StationTrackInfo[]; // station-wise track & platform for accepted train
-=======
-  conflictsWith?: string; // id of the other recommendation it conflicts with
->>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
+  trackAssignment?: StationTrackInfo[];
 }
 
 export interface Metrics {

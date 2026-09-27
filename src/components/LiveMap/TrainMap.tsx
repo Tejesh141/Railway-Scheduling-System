@@ -41,7 +41,6 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [, forceUpdate] = useState(0);
 
-  // init progress
   useEffect(() => {
     trains.forEach(t => {
       if (progressRef.current[t.id] === undefined)
@@ -49,7 +48,6 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
     });
   }, [trains]);
 
-  // animate
   useEffect(() => {
     const animate = (ts: number) => {
       const delta = lastTimeRef.current !== null ? (ts - lastTimeRef.current) / 1000 : 0;
@@ -73,7 +71,6 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [map, trains]);
 
-  // recompute on map move/zoom
   useEffect(() => {
     const handler = () => forceUpdate(n => n + 1);
     map.on('move zoom', handler);
@@ -95,7 +92,6 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
             onMouseEnter={() => setHoveredId(train.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
-            {/* pulse ring — only for delayed trains */}
             {isDelayed && (
               <motion.div
                 style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${color}`, position: 'absolute', top: -4, left: -4 }}
@@ -103,12 +99,10 @@ function TrainOverlay({ trains }: TrainOverlayProps) {
                 transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
               />
             )}
-            {/* dot */}
             <motion.div
               style={{ width: 12, height: 12, borderRadius: '50%', background: color, border: '2px solid white', boxShadow: `0 0 5px ${color}`, cursor: 'pointer' }}
               whileHover={{ scale: 1.4 }}
             />
-            {/* tooltip */}
             <AnimatePresence>
               {hoveredId === train.id && (
                 <motion.div
@@ -152,13 +146,8 @@ export default function TrainMap({ trains, tracks }: TrainMapProps) {
         scrollWheelZoom={true}
       >
         <TileLayer
-<<<<<<< HEAD
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-=======
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
->>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
         />
         {tracks.map((coords, i) => (
           <Polyline
@@ -170,7 +159,6 @@ export default function TrainMap({ trains, tracks }: TrainMapProps) {
         <TrainOverlay trains={trains} />
       </MapContainer>
 
-      {/* Legend */}
       <div style={{
         position: 'absolute', bottom: 16, left: 16, zIndex: 1000,
         background: 'rgba(15,23,42,0.85)', borderRadius: 12, padding: '10px 14px',

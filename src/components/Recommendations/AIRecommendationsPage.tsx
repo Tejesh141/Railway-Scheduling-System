@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-<<<<<<< HEAD
 import { BrainCircuit, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History, Zap, MapPin } from 'lucide-react';
-=======
-import { BrainCircuit, TrendingDown, Check, X, Loader2, Wifi, WifiOff, Filter, Clock, Train, RefreshCw, History, Zap } from 'lucide-react';
->>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
 import { Recommendation } from '../../types';
 import { supabase, supabaseReady } from '../../lib/supabaseClient';
 import { useRecommendations } from '../../hooks/useRecommendations';
@@ -25,19 +21,16 @@ export default function AIRecommendationsPage() {
   const [history, setHistory]       = useState<(Recommendation & { status: ActionStatus; actedAt: Date })[]>([]);
   const [filter, setFilter]         = useState<FilterType>('All');
   const [refreshing, setRefreshing] = useState(false);
-  const [activeIds, setActiveIds]   = useState<string[]>([]); // all currently running timers
+  const [activeIds, setActiveIds]   = useState<string[]>([]);
 
   const statusesRef = useRef(statuses);
   statusesRef.current = statuses;
 
-  // Init: first two trains start simultaneously if they conflict, else just first
   useEffect(() => {
     if (!recommendations.length) return;
     const initTimers: Record<string, TrainTimer> = {};
     recommendations.forEach(r => { initTimers[r.id] = { countdown: 30, decided: false }; });
     setTimers(initTimers);
-
-    // Check if first two conflict with each other — start both together
     const first = recommendations[0];
     const second = recommendations[1];
     if (second && first.conflictsWith === second.id) {
@@ -48,11 +41,10 @@ export default function AIRecommendationsPage() {
   }, [recommendations.length]);
 
   const resolveConflict = useCallback((recA: Recommendation, recB: Recommendation) => {
-    // Higher priority wins → accepted; lower → overridden
     const rankA = PRIORITY_RANK[recA.priority] ?? 1;
     const rankB = PRIORITY_RANK[recB.priority] ?? 1;
-    const winner   = rankA >= rankB ? recA : recB;
-    const loser    = rankA >= rankB ? recB : recA;
+    const winner = rankA >= rankB ? recA : recB;
+    const loser  = rankA >= rankB ? recB : recA;
     return { winner, loser };
   }, []);
 
@@ -67,7 +59,6 @@ export default function AIRecommendationsPage() {
   }, []);
 
   const handleAction = useCallback((rec: Recommendation, action: ActionStatus) => {
-    // If this rec has a conflict pair that is also active, resolve both
     if (rec.conflictsWith) {
       const pair = recommendations.find(r => r.id === rec.conflictsWith);
       if (pair && !statusesRef.current[pair.id]) {
@@ -80,7 +71,6 @@ export default function AIRecommendationsPage() {
     commitAction(rec, action);
   }, [recommendations, resolveConflict, commitAction]);
 
-  // Master tick — counts down all active timers simultaneously
   useEffect(() => {
     if (!activeIds.length) return;
     const interval = setInterval(() => {
@@ -97,14 +87,12 @@ export default function AIRecommendationsPage() {
     return () => clearInterval(interval);
   }, [activeIds]);
 
-  // Watch countdowns hitting 0 → fire auto-decision
   useEffect(() => {
     activeIds.forEach(id => {
       const t = timers[id];
       if (!t || t.decided || statusesRef.current[id] || t.countdown > 0) return;
       const rec = recommendations.find(r => r.id === id);
       if (!rec) return;
-
       if (rec.conflictsWith) {
         const pair = recommendations.find(r => r.id === rec.conflictsWith);
         if (pair && !statusesRef.current[pair.id]) {
@@ -118,17 +106,12 @@ export default function AIRecommendationsPage() {
     });
   }, [timers]);
 
-  // When active timers finish → advance to next undecided trains
   useEffect(() => {
     const allDone = activeIds.every(id => timers[id]?.decided || statusesRef.current[id]);
     if (!allDone || !activeIds.length) return;
-
-    // Find next undecided recommendations
     const decided = new Set(Object.keys(statusesRef.current));
     const remaining = recommendations.filter(r => !decided.has(r.id));
     if (!remaining.length) { setActiveIds([]); return; }
-
-    // Check if next two conflict — activate both together
     const next1 = remaining[0];
     const next2 = remaining[1];
     if (next2 && next1.conflictsWith === next2.id) {
@@ -143,9 +126,9 @@ export default function AIRecommendationsPage() {
   const overridden      = history.filter(h => h.status === 'overridden');
   const totalDelaySaved = accepted.reduce((sum, r) => sum + r.delayReduction, 0);
 
-  const filtered = filter === 'All'     ? recommendations
-    : filter === 'Pending'  ? pending
-    : filter === 'Accepted' ? recommendations.filter(r => statuses[r.id] === 'accepted')
+  const filtered = filter === 'All'      ? recommendations
+    : filter === 'Pending'   ? pending
+    : filter === 'Accepted'  ? recommendations.filter(r => statuses[r.id] === 'accepted')
     : recommendations.filter(r => statuses[r.id] === 'overridden');
 
   const timeAgo = (date: Date) => {
@@ -154,10 +137,7 @@ export default function AIRecommendationsPage() {
     return `${Math.floor(s / 60)}m ago`;
   };
 
-  // Banner: show all currently active trains
-  const activeBannerRecs = activeIds
-    .map(id => recommendations.find(r => r.id === id))
-    .filter(Boolean) as Recommendation[];
+  const activeBannerRecs = activeIds.map(id => recommendations.find(r => r.id === id)).filter(Boolean) as Recommendation[];
   const isConflictPair = activeBannerRecs.length === 2;
 
   return (
@@ -215,23 +195,21 @@ export default function AIRecommendationsPage() {
                     <p className="text-sm font-bold" style={{ color: '#FFFFFF' }}>{activeRec.trainName} — {activeRec.action}</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="relative w-12 h-12">
-                    <svg className="w-12 h-12 -rotate-90" viewBox="0 0 56 56">
-                      <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
-                      <circle cx="28" cy="28" r="24" fill="none"
-                        stroke={countdown <= 10 ? '#ef4444' : '#C9A84C'}
-                        strokeWidth="3"
-                        strokeDasharray={`${2 * Math.PI * 24}`}
-                        strokeDashoffset={`${2 * Math.PI * 24 * (1 - countdown / 30)}`}
-                        style={{ transition: 'stroke-dashoffset 0.9s linear' }}
-                      />
-                    </svg>
-                    <span className="absolute inset-0 flex items-center justify-center font-bold text-base"
-                      style={{ color: countdown <= 10 ? '#ef4444' : '#C9A84C' }}>
-                      {countdown}
-                    </span>
-                  </div>
+                <div className="relative w-12 h-12">
+                  <svg className="w-12 h-12 -rotate-90" viewBox="0 0 56 56">
+                    <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
+                    <circle cx="28" cy="28" r="24" fill="none"
+                      stroke={countdown <= 10 ? '#ef4444' : '#C9A84C'}
+                      strokeWidth="3"
+                      strokeDasharray={`${2 * Math.PI * 24}`}
+                      strokeDashoffset={`${2 * Math.PI * 24 * (1 - countdown / 30)}`}
+                      style={{ transition: 'stroke-dashoffset 0.9s linear' }}
+                    />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center font-bold text-base"
+                    style={{ color: countdown <= 10 ? '#ef4444' : '#C9A84C' }}>
+                    {countdown}
+                  </span>
                 </div>
               </div>
             );
@@ -343,8 +321,8 @@ export default function AIRecommendationsPage() {
                     <span>Generated {timeAgo(rec.timestamp)}</span>
                   </div>
 
-<<<<<<< HEAD
-{status === 'accepted' && rec.trackAssignment && rec.trackAssignment.length > 0 && (
+                  {/* Track Assignment — shown after accepted */}
+                  {status === 'accepted' && rec.trackAssignment && rec.trackAssignment.length > 0 && (
                     <div className="mt-3 rounded-xl border overflow-hidden" style={{ borderColor: '#E2E0D8' }}>
                       <div className="flex items-center space-x-1.5 px-3 py-2" style={{ background: '#1A1A2E', borderBottom: '1px solid rgba(201,168,76,0.25)' }}>
                         <MapPin size={12} strokeWidth={1.8} style={{ color: '#C9A84C' }} />
@@ -378,10 +356,7 @@ export default function AIRecommendationsPage() {
                   )}
 
                   {status ? (
-=======
-{status ? (
->>>>>>> 132c36664a82f06eca938b7db88af59fdbce5d1a
-                    <div className="text-xs font-semibold px-3 py-2 rounded-xl inline-flex items-center space-x-2 border"
+                    <div className="text-xs font-semibold px-3 py-2 rounded-xl inline-flex items-center space-x-2 border mt-3"
                       style={{
                         background: '#F5F4EF', borderColor: '#E2E0D8',
                         color: status === 'accepted' ? '#1A1A2E' : '#6B6B7B',
